@@ -574,20 +574,19 @@ enum STBVorbisError
    #include <string.h>
    #include <assert.h>
    #include <math.h>
-
-   // find definition of alloca if it's not in stdlib.h:
-   #if defined(_MSC_VER) || defined(__MINGW32__)
-   #endif
+   #if !(defined(__APPLE__) || defined(MACOSX) || defined(macintosh) || defined(Macintosh))
+      #include <malloc.h>
    #if defined(__linux__) || defined(__linux) || defined(__EMSCRIPTEN__)
       #include <alloca.h>
    #endif
+#endif
 #else // STB_VORBIS_NO_CRT
    #define NULL 0
    #define malloc(s)   0
+   #define alloca(s)   0
    #define free(s)     ((void) 0)
    #define realloc(s)  0
 #endif // STB_VORBIS_NO_CRT
-
 #include <limits.h>
 
 #ifdef __MINGW32__
